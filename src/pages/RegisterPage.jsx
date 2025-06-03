@@ -37,7 +37,7 @@ const RegisterPage = () => {
             for (var key  in formData){
                 register_form.append(key,formData[key])
             }
-            const response = await fetch("https://hotelserver-zfr1.onrender.com/auth/register",{
+            const response = await fetch("https://hotelserver-9wlo.onrender.com/auth/register",{
                 method:'POST',
                 body:register_form
             })

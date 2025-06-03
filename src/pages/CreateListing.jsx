@@ -131,7 +131,7 @@ const CreateListing = () => {
             })
 
             //send a post request to server
-            const response = await fetch('https://hotelserver-zfr1.onrender.com/properties/create',{
+            const response = await fetch('https://hotelserver-9wlo.onrender.com/properties/create',{
                 method:"POST",
                 body:listingForm
             })

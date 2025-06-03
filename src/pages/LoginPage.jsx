@@ -17,29 +17,30 @@ const LoginPage = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const response = await fetch("https://hotelserver-zfr1.onrender.com/auth/login",{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({email,password})
-      })
-      const loggedIn =await response.json()
-      if(loggedIn){
-        dispatch(
-          setLogin ({
-          user: loggedIn.user,
-          token: loggedIn.token
-        })
-      )
-      navigate('/')
+    try {
+      const response = await fetch("https://hotelserver-9wlo.onrender.com/auth/login", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        alert(`Login failed: ${data.message || "Invalid credentials"}`);
+        return;
       }
+  
+      dispatch(setLogin({
+        user: data.user,
+        token: data.token
+      }));
+  
+      navigate('/');
+    } catch (err) {
+      console.log("Login Failed:", err.message);
     }
-    catch(err){
-      console.log("Login Failed",err.message);
-    }
-  }
+  };
   return (
     <div className='login'>
       <div className='login_content'>

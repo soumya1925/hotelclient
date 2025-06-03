@@ -41,7 +41,7 @@ const ListingCard = ({
      const patchWishList = async () => {
         if (user?._id !== creator._id) {
         const response = await fetch(
-          `https://hotelserver-zfr1.onrender.com/users/${user?._id}/${listingId}`,
+          `https://hotelserver-9wlo.onrender.com/users/${user?._id}/${listingId}`,
           {
             method: "PATCH",
             header: {
@@ -67,7 +67,7 @@ const ListingCard = ({
                {listingPhotoPaths.map((photo, index) => (
                    <div key={index} className='slide'>
                        <img
-                           src={`https://hotelserver-zfr1.onrender.com/${photo?.replace?.("public", "") || "default.jpg"}`}
+                           src={`https://hotelserver-9wlo.onrender.com/${photo?.replace?.("public", "") || "default.jpg"}`}
                            alt="Listing"
                        />
                        <div className="prev-button"

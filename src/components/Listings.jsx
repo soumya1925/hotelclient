@@ -20,8 +20,8 @@ export const Listings = () => {
         try {
             const response = await fetch(
               selectedCategory !== "All"
-                ? `https://hotelserver-zfr1.onrender.com/properties?category=${selectedCategory}`
-                : "https://hotelserver-zfr1.onrender.com/properties",
+                ? `https://hotelserver-9wlo.onrender.com/properties?category=${selectedCategory}`
+                : "https://hotelserver-9wlo.onrender.com/properties",
               {
                 method: "GET",
               }
