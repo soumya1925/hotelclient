@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import  "../styles/Login.scss"
 
+
 const LoginPage = () => {
 
   const [email, setEmail] = React.useState('');
@@ -12,11 +13,12 @@ const LoginPage = () => {
 
   const dispatch= useDispatch();
   const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_API_URL;
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response = await fetch("http://localhost:3001/auth/login",{
+      const response = await fetch("https://hotelserver-zfr1.onrender.com/auth/login",{
         method:'POST',
         headers:{
           'Content-Type':'application/json'
