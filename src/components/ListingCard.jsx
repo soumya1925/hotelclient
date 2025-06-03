@@ -24,6 +24,7 @@ const ListingCard = ({
     /*Slider for images */
 
     const[curentIndex, setCurrentIndex] = React.useState(0);
+    const [popupMessage, setPopupMessage] = React.useState("");
     const gotoPrevSlide = () => {
        setCurrentIndex((prevIndex) => (prevIndex-1 +listingPhotoPaths.length) % listingPhotoPaths.length);
     }
@@ -39,20 +40,34 @@ const ListingCard = ({
      const wishList = user?.wishList || [];
      const isLiked = wishList?.find((item) => item?._id === listingId);
      const patchWishList = async () => {
-        if (user?._id !== creator._id) {
+      if (!user?._id) {
+        setPopupMessage("Please login or register to enable this feature.");
+        return;
+      }
+  
+      if (user?._id === creator?._id) {
+        setPopupMessage("The host or owner of the property cannot add their own property to the wishlist.");
+        return;
+      }
+        
+       
+  
+      try {
         const response = await fetch(
-          `https://hotelserver-9wlo.onrender.com/users/${user?._id}/${listingId}`,
+          `https://hotelserver-9wlo.onrender.com/users/${user._id}/${listingId}`,
           {
             method: "PATCH",
-            header: {
+            headers: {
               "Content-Type": "application/json",
             },
           }
         );
         const data = await response.json();
         dispatch(setWishList(data.wishList));
-      } else { return }
-      };
+      } catch (err) {
+        console.error("Failed to update wishlist", err.message);
+      }
+    };
 
 
 
@@ -127,7 +142,7 @@ const ListingCard = ({
           e.stopPropagation();
           patchWishList();
         }}
-        disabled={!user}
+        // disabled={!user}
       >
         {isLiked ? (
           <Favorite sx={{ color: "red" }} />
@@ -135,6 +150,13 @@ const ListingCard = ({
           <Favorite sx={{ color: "white" }} />
         )}
       </button>
+
+      {popupMessage && (
+  <div className="login-popup" onClick={(e) => e.stopPropagation()}>
+    <p>{popupMessage}</p>
+    <button onClick={() => setPopupMessage("")}>Close</button>
+  </div>
+)}
 
      
 
